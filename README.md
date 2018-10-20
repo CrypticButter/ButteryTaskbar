@@ -4,10 +4,12 @@ Save space on your screen by hiding the taskbar when it's not needed.
 ![Enjoy the entire desktop]()
 ![Get access to the taskbar when opening the Start Menu]()
 
+### ***[Get it now!](#installation-and-usage)***
+
 ## Contents
 - [The Purpose of a Buttery Taskbar](#the-purpose-of-a-buttery-taskbar)
   - [What's Wrong With the Taskbar Regular Auto-Hide?](#whats-wrong-with-the-regular-taskbar-auto-hide)
-- **[Installation and Usage](#installation-and-usage)**
+- [Installation and Usage](#installation-and-usage)
 - [Tips for Making the Most of Your Buttery Taskbar](#tips-for-making-the-most-of-your-buttery-taskbar)
   - [Leveraging Keyboard Shortcuts](#leveraging-keyboard-shortcuts)
   - [Get Yourself Some Macro Keys—on Your Mouse](#get-yourself-some-macro-keyson-your-mouse)
