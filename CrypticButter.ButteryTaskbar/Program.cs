@@ -1,6 +1,5 @@
 ﻿namespace CrypticButter.ButteryTaskbar
 {
-    using Microsoft.Win32;
     using System;
     using System.Deployment.Application;
     using System.Diagnostics;
@@ -10,6 +9,7 @@
     using System.Runtime.InteropServices;
     using System.Threading;
     using System.Windows.Forms;
+    using Microsoft.Win32;
 
     public enum TaskbarPosition
     {
@@ -173,8 +173,7 @@
         /// The timeout after setting the taskbar's visibility, in milliseconds
         /// </summary>
         private const int TaskbarVisibilityChangedTimeout = 300;
-
-
+        
         /// <summary>
         /// The URL for the program's help/support webpage
         /// </summary>
@@ -185,25 +184,12 @@
         /// </summary>
         private const string ApplicationIconFileName = "AppIconRound.ico";
 
-        public static readonly string ApplicationName = "Buttery Taskbar";
+        /// <summary>
+        /// User-friendly name of the application, "Buttery Taskbar"
+        /// </summary>
+        private const string ApplicationName = "Buttery Taskbar";
 
-        private static bool _disabled;
-        public static bool Disabled
-        {
-            get => _disabled;
-            set
-            {
-                _disabled = value;
-                if (_disabled)
-                {
-                    _updateVisibilityTimer.Stop();
-                }
-                else
-                {
-                    _updateVisibilityTimer.Start();
-                }
-            }
-        }
+        private static bool _disabled = false;
 
         /// <summary>
         /// Represents the taskbar
@@ -263,6 +249,44 @@
         private static RegistryKey _startupAppsKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
         private static string _applicationPath = Environment.GetFolderPath(Environment.SpecialFolder.Programs) + $@"\Cryptic Butter\{Program.ApplicationName}.appref-ms";
 
+        /// <summary>
+        /// Should the application hide the taskbar
+        /// </summary>
+        public static bool Disabled
+        {
+            get => _disabled;
+            set
+            {
+                _disabled = value;
+                if (_disabled)
+                {
+                    _updateVisibilityTimer.Stop();
+                    SetTaskbarVisibility(true);
+                }
+                else
+                {
+                    _shouldTaskbarBeVisible = StartMenu.GetCurrentVisibility();
+                    UpdateTaskbarVisibility();
+                    _updateVisibilityTimer.Start();
+                }
+            }
+        }
+
+        public static void SetIcon()
+        {
+            bool firstExecutionOfClickOnce = ApplicationDeployment.IsNetworkDeployed && ApplicationDeployment.CurrentDeployment.IsFirstRun;
+            if (firstExecutionOfClickOnce)
+            {
+                RegistryKey allAppsUninstallKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Uninstall");
+
+                string appUninstallSubKeyName = allAppsUninstallKey.GetSubKeyNames()
+                    .Where(subKeyName => allAppsUninstallKey.OpenSubKey(subKeyName, true).GetValue("DisplayName")?.ToString() == Program.ApplicationName)
+                    .FirstOrDefault();
+
+                allAppsUninstallKey.OpenSubKey(appUninstallSubKeyName, true).SetValue("DisplayIcon", Path.Combine(System.Windows.Forms.Application.StartupPath, ApplicationIconFileName));
+            }
+        }
+
         private static void Main(string[] args)
         {
             var appMutex = new Mutex(true, ApplicationName, out bool newMutexCreated);
@@ -296,6 +320,7 @@
             {
                 Checked = Properties.Settings.Default.ForceTaskbarState,
             };
+
             // TODO KTOCN
             /*_keepTaskbarIfCursorNearMenuItem = new MenuItem("Hide taskbar after cursor moves away", KeepTaskbarCursorNearMenuItem_Click)
             {
@@ -307,18 +332,20 @@
             };
 
             var helpMenuItem = new MenuItem("Help", HelpMenuItem_Click);
+            var cbWebsiteMenuItem = new MenuItem("Consume Butter", AuthorWebsiteMenuItem_Click);
             var quitMenuItem = new MenuItem("Quit", QuitMenuItem_Click);
             var appNameMenuItem = new MenuItem($"{Program.ApplicationName} {appVersionNumber}")
             {
                 Enabled = false,
-
             };
 
             _trayContextMenu.MenuItems.Add(_disableAppMenuItem);
             _trayContextMenu.MenuItems.Add(_forceTaskbarStateMenuItem);
-            //TODO KTOCN _trayContextMenu.MenuItems.Add(_keepTaskbarIfCursorNearMenuItem);
+
+            // TODO KTOCN _trayContextMenu.MenuItems.Add(_keepTaskbarIfCursorNearMenuItem);
             _trayContextMenu.MenuItems.Add(_autoStartupMenuItem);
             _trayContextMenu.MenuItems.Add(helpMenuItem);
+            _trayContextMenu.MenuItems.Add(cbWebsiteMenuItem);
             _trayContextMenu.MenuItems.Add(quitMenuItem);
             _trayContextMenu.MenuItems.Add("-");
             _trayContextMenu.MenuItems.Add(appNameMenuItem);
@@ -330,23 +357,8 @@
                 Text = Program.ApplicationName,
                 Visible = true
             };
-            
+
             Application.Run();
-        }
-
-        public static void SetIcon()
-        {
-            bool firstExecutionOfClickOnce = ApplicationDeployment.IsNetworkDeployed && ApplicationDeployment.CurrentDeployment.IsFirstRun;
-            if (firstExecutionOfClickOnce)
-            {
-                RegistryKey allAppsUninstallKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Uninstall");
-
-                string appUninstallSubKeyName = allAppsUninstallKey.GetSubKeyNames()
-                    .Where(subKeyName => allAppsUninstallKey.OpenSubKey(subKeyName, true).GetValue("DisplayName")?.ToString() == Program.ApplicationName)
-                    .FirstOrDefault();
-
-                allAppsUninstallKey.OpenSubKey(appUninstallSubKeyName, true).SetValue("DisplayIcon", Path.Combine(System.Windows.Forms.Application.StartupPath, @"AppIconRound.ico"));
-            }
         }
 
         private static void DisableApppMenuItem_Click(object sender, EventArgs args)
@@ -401,8 +413,13 @@
 
         private static void HelpMenuItem_Click(object sender, EventArgs args) => Process.Start(HelpLocation);
 
+        private static void AuthorWebsiteMenuItem_Click(object sender, EventArgs args) => Process.Start("https://crypticbutter.com/ref-butterytaskbar");
+
         private static void QuitMenuItem_Click(object sender, EventArgs args)
         {
+            _updateVisibilityTimer.Dispose();
+            SetTaskbarVisibility(false);
+
             _appSettingsNotifyIcon.Dispose();
             _trayContextMenu.Dispose();
             Application.Exit();
