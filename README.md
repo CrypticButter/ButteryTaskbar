@@ -1,6 +1,8 @@
 # Buttery Taskbar
 Save space on your screen by *permanently* hiding the taskbar when it's not needed. This is **a much-needed fix for Windows' default taskbar auto-hide.**
 
+Essentially, we're combining the taskbar with the Start Menu.
+
 ### ***[Get it now!](https://github.com/CrypticButter/ButteryTaskbar/wiki/Installation,-Setup-and-Usage)***
 
 ![Enjoy the entire desktop](https://i.imgur.com/HSuzqLhl.png)
