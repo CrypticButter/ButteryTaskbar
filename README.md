@@ -64,9 +64,9 @@ If you're used to using the mouse a lot, it may take some time to get used to yo
 
 ### Leveraging Keyboard Shortcuts
 There are other ways to navigate the Windows desktop—without the need of the taskbar, of course. These include shortcuts such as:
-- Windows key + Tab *(Task View)*
-- (Ctrl +) Alt + Tab *(switch between windows)*
-- Alt + Escape (cycle through windows in the order in which they were last used)
+- `Windows key` + `Tab` *(Task View)*
+- (`Ctrl` +) `Alt` + `Tab` *(switch between windows)*
+- `Alt` + `Escape` (cycle through windows in the order in which they were last used)
 These shortcuts enhance productivity by themselves, even without a Buttery Taskbar!
 
 For more productive keyboard shortcuts, see this: ***[How to Navigate Windows 10: 123 Most Valuable Shortcuts](https://crypticbutter.com/navigate-windows-10-123-shortcuts/).***
