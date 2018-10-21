@@ -1,7 +1,9 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Deployment.Application;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace CrypticButter.ButteryTaskbar
@@ -54,13 +56,17 @@ namespace CrypticButter.ButteryTaskbar
         private static MenuItem _disableAppMenuItem;
 
         private static RegistryKey _startupAppsKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
-        private static string _applicationPath = Environment.GetFolderPath(Environment.SpecialFolder.Programs) + @"\Cryptic Butter\Buttery Taskbar.appref-ms";
+        private static string _applicationPath = Environment.GetFolderPath(Environment.SpecialFolder.Programs) + $@"\Cryptic Butter\{Program.ApplicationName}.appref-ms";
 
         public MainForm()
         {
             InitializeComponent();
 
             SetAutoStartupState(Properties.Settings.Default.AutoStartup);
+
+            string appVersionNumber = ApplicationDeployment.IsNetworkDeployed
+                ? ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString()
+                : "Dev";
 
             _disableAppMenuItem = new MenuItem("Disable", DisableApppMenuItem_Click)
             {
@@ -79,10 +85,10 @@ namespace CrypticButter.ButteryTaskbar
             {
                 Checked = Properties.Settings.Default.AutoStartup,
             };
-                
+
             var helpMenuItem = new MenuItem("Help", HelpMenuItem_Click);
             var quitMenuItem = new MenuItem("Quit", QuitMenuItem_Click);
-            var appNameMenuItem = new MenuItem($"Buttery Taskbar {System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}")
+            var appNameMenuItem = new MenuItem($"{Program.ApplicationName} {appVersionNumber}")
             {
                 Enabled = false,
 
@@ -101,12 +107,38 @@ namespace CrypticButter.ButteryTaskbar
             {
                 Icon = _applicationIcon,
                 ContextMenu = _trayContextMenu,
-                Text = "Buttery Taskbar",
+                Text = Program.ApplicationName,
                 Visible = true
             };
 
             this.WindowState = FormWindowState.Minimized;
             this.ShowInTaskbar = false;
+        }
+
+        public static void SetIcon()
+        {
+            bool firstExecutionOfClickOnce = ApplicationDeployment.IsNetworkDeployed && ApplicationDeployment.CurrentDeployment.IsFirstRun;
+            if (firstExecutionOfClickOnce)
+            {
+                RegistryKey allAppsUninstallKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Uninstall");
+                /*
+                foreach (string subKeyName in allAppsUninstallKey.GetSubKeyNames())
+                {
+                    RegistryKey myKey = allAppsUninstallKey.OpenSubKey(subKeyName, true);
+
+                    object myValue = myKey.GetValue("DisplayName");
+                    if (myValue != null && myValue.ToString() == Program.ApplicationName)
+                    {
+                        myKey.SetValue("DisplayIcon", iconSourcePath);
+                        break;
+                    }
+                }*/
+                string appUninstallSubKeyName = allAppsUninstallKey.GetSubKeyNames()
+                    .Where(subKeyName => allAppsUninstallKey.OpenSubKey(subKeyName, true).GetValue("DisplayName")?.ToString() == Program.ApplicationName)
+                    .FirstOrDefault();
+
+                allAppsUninstallKey.OpenSubKey(appUninstallSubKeyName, true).SetValue("DisplayIcon", _applicationPath);
+            }
         }
 
         private static void DisableApppMenuItem_Click(object sender, EventArgs args)
@@ -130,13 +162,16 @@ namespace CrypticButter.ButteryTaskbar
 
         private static void SetAutoStartupState(bool autoStartupEnabled)
         {
-            if (autoStartupEnabled)
+            if (ApplicationDeployment.IsNetworkDeployed)
             {
-                _startupAppsKey.SetValue("Buttery Taskbar", _applicationPath);
-            }
-            else if (_startupAppsKey.GetValue("Buttery Taskbar") != null)
-            {
-                _startupAppsKey.DeleteValue("Buttery Taskbar");
+                if (autoStartupEnabled)
+                {
+                    _startupAppsKey.SetValue(Program.ApplicationName, _applicationPath);
+                }
+                else if (_startupAppsKey.GetValue(Program.ApplicationName) != null)
+                {
+                    _startupAppsKey.DeleteValue(Program.ApplicationName);
+                }
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿namespace CrypticButter.ButteryTaskbar
 {
     using System;
+    using System.Deployment.Application;
     using System.Drawing;
     using System.Runtime.InteropServices;
     using System.Threading;
@@ -159,6 +160,8 @@
     /// </summary>
     internal class Program
     {
+        public static readonly string ApplicationName = "Buttery Taskbar";
+
         /// <summary>
         /// The milliseconds between each update of the taskbar's visibility
         /// </summary>
@@ -209,14 +212,14 @@
 
         private static void Main(string[] args)
         {
-            var appName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
-            
-            var appMutex = new Mutex(true, appName, out bool newMutexCreated);
+            var appMutex = new Mutex(true, ApplicationName, out bool newMutexCreated);
 
             if (!newMutexCreated)
             {
                 throw new Exception("Buttery Taskbar is already running!");
             }
+
+            MainForm.SetIcon();
 
             _updateVisibilityTimer = new System.Timers.Timer
             {

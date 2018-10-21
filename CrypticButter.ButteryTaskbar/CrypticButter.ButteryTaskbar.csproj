@@ -26,11 +26,11 @@
     <UpdateUrl>https://raw.githubusercontent.com/CrypticButter/ButteryTaskbar/master/CrypticButter.ButteryTaskbar/publish/</UpdateUrl>
     <SupportUrl>https://github.com/CrypticButter/ButteryTaskbar/wiki/Support</SupportUrl>
     <ProductName>Buttery Taskbar</ProductName>
-    <PublisherName>Luis Thiam-Nye</PublisherName>
+    <PublisherName>Cryptic Butter</PublisherName>
     <MinimumRequiredVersion>1.0.0.3</MinimumRequiredVersion>
     <WebPage>publish.htm</WebPage>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationRevision>5</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -86,6 +86,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -136,6 +137,11 @@
     <Content Include="AppIconRound.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
