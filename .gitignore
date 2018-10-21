@@ -261,4 +261,4 @@ paket-files/
 __pycache__/
 *.pyc
 
-Assets/
+/CrypticButter.ButteryTaskbar/Assets
