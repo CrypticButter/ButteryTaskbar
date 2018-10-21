@@ -1,11 +1,11 @@
 # Buttery Taskbar
-Save space on your screen by hiding the taskbar when it's not needed.
+Save space on your screen by *permanently* hiding the taskbar when it's not needed. This is **a much-needed fix for Windows' default taskbar auto-hide.**
+
+### ***[Get it now!](https://github.com/CrypticButter/ButteryTaskbar/wiki/Installation,-Setup-and-Usage)***
 
 ![Enjoy the entire desktop](https://i.imgur.com/HSuzqLhl.png)
 
 ![Get access to the taskbar when opening the Start Menu](https://i.imgur.com/RDkaKdcl.jpg)
-
-### ***[Get it now!](#installation-and-usage)***
 
 ## Contents
 - [The Purpose of a Buttery Taskbar](#the-purpose-of-a-buttery-taskbar)
@@ -16,11 +16,14 @@ Save space on your screen by hiding the taskbar when it's not needed.
   - [Get Yourself Some Macro Keys—on Your Mouse](#get-yourself-some-macro-keyson-your-mouse)
   - [Embrace the *Superior* Taskbar!](#embrace-the-superior-taskbar)
 - [Compatibility](#compatibility)
+
+***Want more detailed information and guidance? [Head over to the wiki](https://github.com/CrypticButter/ButteryTaskbar/wiki) for the real deal.***
 ## The Purpose of a Buttery Taskbar
 The taskbar in Windows can be rather annoying—especially if you want to maximise your screen's real estate. So, I developed Buttery Taskbar.
 
 In addition to making your Windows desktop feel **cleaner and less cluttered,** the underlying goal of this simple application is to **increase your productivity.**
 
+![Buttery Taskbar](https://i.imgur.com/aSJ0gJPt.png)
 ![Clean, empty desktop](https://i.imgur.com/sJ7v5zcm.jpg)
 
 - **Buttery Taskbar has only one purpose: to keep the taskbar hidden when the Start Menu is closed,** and vice versa.
@@ -47,6 +50,8 @@ Moreover, the taskbar can occasionally get your face when you least expect it; a
 ![Enable automatically hide the taskbar in desktop mode](https://i.imgur.com/MMVuYFjm.jpg)
 
 You will need to use the Windows key to view the taskbar.
+
+***[See the full installation, setup and usage guide!](https://github.com/CrypticButter/ButteryTaskbar/wiki/Installation,-Setup-and-Usage)***
 
 ## Tips for Making the Most of Your Buttery Taskbar
 You may be asking, 
