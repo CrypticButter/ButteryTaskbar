@@ -5,6 +5,7 @@
     using System.Deployment.Application;
     using System.Diagnostics;
     using System.Drawing;
+    using System.IO;
     using System.Linq;
     using System.Runtime.InteropServices;
     using System.Threading;
@@ -344,7 +345,7 @@
                     .Where(subKeyName => allAppsUninstallKey.OpenSubKey(subKeyName, true).GetValue("DisplayName")?.ToString() == Program.ApplicationName)
                     .FirstOrDefault();
 
-                allAppsUninstallKey.OpenSubKey(appUninstallSubKeyName, true).SetValue("DisplayIcon", ApplicationDeployment.CurrentDeployment.DataDirectory + @"\AppIconRound.ico");
+                allAppsUninstallKey.OpenSubKey(appUninstallSubKeyName, true).SetValue("DisplayIcon", Path.Combine(System.Windows.Forms.Application.StartupPath, @"AppIconRound.ico"));
             }
         }
 
