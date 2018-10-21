@@ -1,15 +1,9 @@
 ﻿namespace CrypticButter.ButteryTaskbar
 {
     using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Diagnostics;
     using System.Drawing;
-    using System.Linq;
     using System.Runtime.InteropServices;
-    using System.Text;
     using System.Threading;
-    using System.Threading.Tasks;
     using System.Windows.Forms;
 
     public enum TaskbarPosition
@@ -175,15 +169,28 @@
         /// </summary>
         private const int TaskbarVisibilityChangedTimeout = 300;
 
+        private static bool _disabled;
+        public static bool Disabled
+        {
+            get => _disabled;
+            set
+            {
+                _disabled = value;
+                if (_disabled)
+                {
+                    _updateVisibilityTimer.Stop();
+                }
+                else
+                {
+                    _updateVisibilityTimer.Start();
+                }
+            }
+        }
+
         /// <summary>
         /// Represents the taskbar
         /// </summary>
         private static Taskbar _taskbar = new Taskbar();
-
-        /// <summary>
-        /// Used to control the termination of the programme
-        /// </summary>
-        private static ManualResetEvent _terminateProgramEvent = new ManualResetEvent(false);
 
         /// <summary>
         /// Used to trigger the updating of the taskbar at regular intervals
@@ -202,6 +209,15 @@
 
         private static void Main(string[] args)
         {
+            var appName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
+            
+            var appMutex = new Mutex(true, appName, out bool newMutexCreated);
+
+            if (!newMutexCreated)
+            {
+                throw new Exception("Buttery Taskbar is already running!");
+            }
+
             _updateVisibilityTimer = new System.Timers.Timer
             {
                 Interval = UpdateTaskbarVisibilityInterval,
@@ -209,8 +225,10 @@
             };
             _updateVisibilityTimer.Elapsed += (s, e) => UpdateTaskbarVisibility();
             _updateVisibilityTimer.Start();
-            
-            _terminateProgramEvent.WaitOne();
+
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new MainForm());
         }
 
         private static void UpdateTaskbarVisibility()
@@ -220,8 +238,12 @@
             bool isStartMenuVisible = StartMenu.GetCurrentVisibility();
             bool startMenuVisibilityChanged = isStartMenuVisible != _wasStartMenuVisibleBefore;
 
-            bool isTaskbarVisible = _taskbar.GetCurrentVisibility();
-            bool wrongTaskbarVisibility = isTaskbarVisible != _shouldTaskbarBeVisible;
+            bool wrongTaskbarVisibility = false;
+            if (Properties.Settings.Default.ForceTaskbarState)
+            {
+                bool isTaskbarVisible = _taskbar.GetCurrentVisibility();
+                wrongTaskbarVisibility = isTaskbarVisible != _shouldTaskbarBeVisible;
+            }
 
             if (startMenuVisibilityChanged || wrongTaskbarVisibility)
             {
@@ -231,6 +253,11 @@
             if (startMenuVisibilityChanged)
             {
                 _wasStartMenuVisibleBefore = isStartMenuVisible;
+
+                if (isStartMenuVisible)
+                {
+                    _taskbar.SetFocus();
+                }
             }
 
             _updateVisibilityTimer.Start();
@@ -257,7 +284,7 @@
 
         public static bool GetCurrentVisibility()
         {
-            var isLauncherVisibleResult = s_appVisibility.IsLauncherVisible(out bool isStartMenuVisible);
+            HRESULT isLauncherVisibleResult = s_appVisibility.IsLauncherVisible(out bool isStartMenuVisible);
 
             if (isLauncherVisibleResult != HRESULT.S_OK)
             {
@@ -272,7 +299,7 @@
     {
         private const string ClassName = "Shell_TrayWnd";
 
-        private IntPtr _taskbarHandle;
+        private readonly IntPtr _taskbarHandle;
 
         public Taskbar()
         {
@@ -304,5 +331,7 @@
         public void SetVisibility(bool showTaskbar) => User32.ShowWindow(this._taskbarHandle, showTaskbar ? User32.SW_SHOW : User32.SW_HIDE);
 
         public bool GetCurrentVisibility() => User32.IsWindowVisible(this._taskbarHandle);
+
+        public void SetFocus() => User32.SetForegroundWindow(this._taskbarHandle);
     }
 }

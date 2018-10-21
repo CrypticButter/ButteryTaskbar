@@ -261,4 +261,5 @@ paket-files/
 __pycache__/
 *.pyc
 
-app-demo-images/
+Assets/
+/CrypticButter.ButteryTaskbar/publish/Application Files
