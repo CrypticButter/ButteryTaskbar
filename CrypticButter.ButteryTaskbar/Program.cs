@@ -1,5 +1,6 @@
 ﻿namespace CrypticButter.ButteryTaskbar
 {
+    using Microsoft.Win32;
     using System;
     using System.Deployment.Application;
     using System.Diagnostics;
@@ -9,7 +10,6 @@
     using System.Runtime.InteropServices;
     using System.Threading;
     using System.Windows.Forms;
-    using Microsoft.Win32;
 
     public enum TaskbarPosition
     {
@@ -173,7 +173,7 @@
         /// The timeout after setting the taskbar's visibility, in milliseconds
         /// </summary>
         private const int TaskbarVisibilityChangedTimeout = 300;
-        
+
         /// <summary>
         /// The URL for the program's help/support webpage
         /// </summary>
@@ -272,21 +272,6 @@
             }
         }
 
-        public static void SetIcon()
-        {
-            bool firstExecutionOfClickOnce = ApplicationDeployment.IsNetworkDeployed && ApplicationDeployment.CurrentDeployment.IsFirstRun;
-            if (firstExecutionOfClickOnce)
-            {
-                RegistryKey allAppsUninstallKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Uninstall");
-
-                string appUninstallSubKeyName = allAppsUninstallKey.GetSubKeyNames()
-                    .Where(subKeyName => allAppsUninstallKey.OpenSubKey(subKeyName, true).GetValue("DisplayName")?.ToString() == Program.ApplicationName)
-                    .FirstOrDefault();
-
-                allAppsUninstallKey.OpenSubKey(appUninstallSubKeyName, true).SetValue("DisplayIcon", Path.Combine(System.Windows.Forms.Application.StartupPath, ApplicationIconFileName));
-            }
-        }
-
         private static void Main(string[] args)
         {
             var appMutex = new Mutex(true, ApplicationName, out bool newMutexCreated);
@@ -296,7 +281,7 @@
                 throw new Exception("Buttery Taskbar is already running!");
             }
 
-            SetIcon();
+            SetupIfFirstRun();
 
             _updateVisibilityTimer = new System.Timers.Timer
             {
@@ -305,8 +290,6 @@
             };
             _updateVisibilityTimer.Elapsed += (s, e) => UpdateTaskbarVisibility();
             _updateVisibilityTimer.Start();
-
-            SetAutoStartupState(Properties.Settings.Default.AutoStartup);
 
             string appVersionNumber = ApplicationDeployment.IsNetworkDeployed
                 ? ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString()
@@ -329,6 +312,7 @@
             _autoStartupMenuItem = new MenuItem("Start with Windows", AutoStartupMenuItem_Click)
             {
                 Checked = Properties.Settings.Default.AutoStartup,
+                Enabled = ApplicationDeployment.IsNetworkDeployed,
             };
 
             var helpMenuItem = new MenuItem("Help", HelpMenuItem_Click);
@@ -359,6 +343,28 @@
             };
 
             Application.Run();
+        }
+
+        private static void SetupIfFirstRun()
+        {
+            bool firstExecutionOfClickOnce = ApplicationDeployment.IsNetworkDeployed && ApplicationDeployment.CurrentDeployment.IsFirstRun;
+            if (firstExecutionOfClickOnce)
+            {
+                SetUninstallIconInRegistry();
+
+                SetAutoStartupState(Properties.Settings.Default.AutoStartup);
+            }
+        }
+
+        private static void SetUninstallIconInRegistry()
+        {
+            RegistryKey allAppsUninstallKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Uninstall");
+
+            string appUninstallSubKeyName = allAppsUninstallKey.GetSubKeyNames()
+                .Where(subKeyName => allAppsUninstallKey.OpenSubKey(subKeyName, true).GetValue("DisplayName")?.ToString() == Program.ApplicationName)
+                .FirstOrDefault();
+
+            allAppsUninstallKey.OpenSubKey(appUninstallSubKeyName, true).SetValue("DisplayIcon", Path.Combine(System.Windows.Forms.Application.StartupPath, ApplicationIconFileName));
         }
 
         private static void DisableApppMenuItem_Click(object sender, EventArgs args)
@@ -392,6 +398,8 @@
                 {
                     _startupAppsKey.DeleteValue(Program.ApplicationName);
                 }
+
+                Properties.Settings.Default.Save();
             }
         }
 
@@ -401,15 +409,20 @@
             Properties.Settings.Default.ForceTaskbarState = shouldForceTaskbarState;
 
             _forceTaskbarStateMenuItem.Checked = shouldForceTaskbarState;
+
+            Properties.Settings.Default.Save();
         }
 
-        private static void KeepTaskbarCursorNearMenuItem_Click(object sender, EventArgs args)
+        // TODO KTOCN
+        /*private static void KeepTaskbarCursorNearMenuItem_Click(object sender, EventArgs args)
         {
-            bool shouldForceTaskbarState = !Properties.Settings.Default.ForceTaskbarState;
-            Properties.Settings.Default.ForceTaskbarState = shouldForceTaskbarState;
+            bool cursorBasedAutoHideEnabled = !Properties.Settings.Default.KeepTaskbarOpenIfCursorNear;
+            Properties.Settings.Default.KeepTaskbarOpenIfCursorNear = cursorBasedAutoHideEnabled;
 
-            _forceTaskbarStateMenuItem.Checked = shouldForceTaskbarState;
-        }
+            _keepTaskbarIfCursorNearMenuItem.Checked = cursorBasedAutoHideEnabled;
+
+            Properties.Settings.Default.Save();
+        }*/
 
         private static void HelpMenuItem_Click(object sender, EventArgs args) => Process.Start(HelpLocation);
 
