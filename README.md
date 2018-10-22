@@ -3,7 +3,7 @@ Save space on your screen by *permanently* hiding the taskbar when it's not need
 
 Essentially, we're combining the taskbar with the Start Menu.
 
-### ***[Get it now!](https://github.com/CrypticButter/ButteryTaskbar/wiki/Installation,-Setup-and-Usage)***
+### ***[Click Here for How to Download and Install the Buttery Taskbar!](https://github.com/CrypticButter/ButteryTaskbar/wiki/Installation,-Setup-and-Usage)***
 
 ![Enjoy the entire desktop](https://i.imgur.com/HSuzqLhl.png)
 
