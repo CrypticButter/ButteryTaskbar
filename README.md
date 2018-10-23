@@ -44,7 +44,7 @@ Regardless of what side of the screen the taskbar is on, **auto-hide *will* get 
 Moreover, the taskbar can occasionally get your face when you least expect it; applications that want your attention, for example, **will stop at nothing to keep that taskbar *open*.** It must know that you would rather stare at a flashing orange icon rather than continue your highly-focused work in Microsoft Word!
 
 ## Installation and Usage
-**Download the [latest release](https://github.com/CrypticButter/ButteryTaskbar/) of Buttery Taskbar.**
+**Download the [latest release](https://github.com/CrypticButter/ButteryTaskbar/releases) of Buttery Taskbar.**
 
 **Make sure to set your taskbar to auto-hide.** Although we won't be using the taskbar-appears-on-cursor-hover element of this feature, it is essential for a happy, positive experience. If you don't do this, you'll end up with a huge, unusable gap where the taskbar would be. Auto-hide makes this gap tiny.
 
