@@ -18,6 +18,8 @@ Essentially, we're combining the taskbar with the Start Menu.
   - [Get Yourself Some Macro Keys—on Your Mouse](#get-yourself-some-macro-keyson-your-mouse)
   - [Embrace the *Superior* Taskbar!](#embrace-the-superior-taskbar)
 - [Compatibility](#compatibility)
+- [Known Issues and Other Notes](#known-issues-and-other-notes)
+- [Roadmap](#roadmap)
 
 ***Want more detailed information and guidance? [Head over to the wiki](https://github.com/CrypticButter/ButteryTaskbar/wiki) for the real deal.***
 ## The Purpose of a Buttery Taskbar
@@ -87,3 +89,10 @@ If you want more details on how to make your taskbar better for convenience and 
 
 ## Compatibility
 The program has only been tested and known to work on Windows 10.
+
+## Known Issues and Other Notes
+- Yet to be tested in a multi-monitor configuration
+- No longer works once Windows Explorer has been restarted
+
+## Roadmap
+To get an idea of where I intend to take this program, [view the project board](https://github.com/CrypticButter/ButteryTaskbar/projects/1).
