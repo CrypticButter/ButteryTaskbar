@@ -5,6 +5,8 @@ Essentially, we're combining the taskbar with the Start Menu.
 
 ### ***[Click Here for How to Download and Install the Buttery Taskbar!](https://github.com/CrypticButter/ButteryTaskbar/wiki/Installation,-Setup-and-Usage)***
 
+*And follow me at [Cryptic Butter](https://www.crypticbutter.com) for updates as well as effective time management strategies and productivity tips!*
+
 ![Enjoy the entire desktop](https://i.imgur.com/HSuzqLhl.png)
 
 ![Get access to the taskbar when opening the Start Menu](https://i.imgur.com/RDkaKdcl.jpg)
@@ -96,3 +98,5 @@ The program has only been tested and known to work on Windows 10.
 
 ## Roadmap
 To get an idea of where I intend to take this program, [view the project board](https://github.com/CrypticButter/ButteryTaskbar/projects/1).
+
+**Note: development for the Buttery Taskbar is currently paused in favour of other projects and potential future software. Visit https://www.crypticbutter.com/ to see what I'm up to.**
