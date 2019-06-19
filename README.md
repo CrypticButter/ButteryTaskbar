@@ -5,7 +5,7 @@ Essentially, we're combining the taskbar with the Start Menu.
 
 ### ***[Click Here for How to Download and Install the Buttery Taskbar!](https://github.com/CrypticButter/ButteryTaskbar/wiki/Installation,-Setup-and-Usage)***
 
-*And follow me at [Cryptic Butter](https://www.crypticbutter.com) for updates as well as effective time management strategies and productivity tips!*
+***And follow me at [Cryptic Butter](https://www.crypticbutter.com) for updates as well as effective time management strategies and productivity tips!***
 
 ![Enjoy the entire desktop](https://i.imgur.com/HSuzqLhl.png)
 
