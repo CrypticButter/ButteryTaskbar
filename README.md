@@ -1,11 +1,15 @@
-# Buttery Taskbar
-Save space on your screen by hiding the taskbar when it's not needed.
+# Buttery Taskbar: The Better Way to Hide Your Taskbar
+Save space on your screen by *permanently* hiding the taskbar when it's not needed. This is **a much-needed fix for Windows' default taskbar auto-hide.**
+
+Essentially, we're combining the taskbar with the Start Menu.
+
+### ***[Click Here for How to Download and Install the Buttery Taskbar!](https://github.com/CrypticButter/ButteryTaskbar/wiki/Installation,-Setup-and-Usage)***
+
+***And follow me at [Cryptic Butter](https://www.crypticbutter.com) for updates as well as effective time management strategies and productivity tips!***
 
 ![Enjoy the entire desktop](https://i.imgur.com/HSuzqLhl.png)
 
 ![Get access to the taskbar when opening the Start Menu](https://i.imgur.com/RDkaKdcl.jpg)
-
-### ***[Get it now!](#installation-and-usage)***
 
 ## Contents
 - [The Purpose of a Buttery Taskbar](#the-purpose-of-a-buttery-taskbar)
@@ -16,11 +20,16 @@ Save space on your screen by hiding the taskbar when it's not needed.
   - [Get Yourself Some Macro Keys—on Your Mouse](#get-yourself-some-macro-keyson-your-mouse)
   - [Embrace the *Superior* Taskbar!](#embrace-the-superior-taskbar)
 - [Compatibility](#compatibility)
+- [Known Issues and Other Notes](#known-issues-and-other-notes)
+- [Roadmap](#roadmap)
+
+***Want more detailed information and guidance? [Head over to the wiki](https://github.com/CrypticButter/ButteryTaskbar/wiki) for the real deal.***
 ## The Purpose of a Buttery Taskbar
 The taskbar in Windows can be rather annoying—especially if you want to maximise your screen's real estate. So, I developed Buttery Taskbar.
 
 In addition to making your Windows desktop feel **cleaner and less cluttered,** the underlying goal of this simple application is to **increase your productivity.**
 
+![Buttery Taskbar](https://i.imgur.com/aSJ0gJPt.png)
 ![Clean, empty desktop](https://i.imgur.com/sJ7v5zcm.jpg)
 
 - **Buttery Taskbar has only one purpose: to keep the taskbar hidden when the Start Menu is closed,** and vice versa.
@@ -39,7 +48,7 @@ Regardless of what side of the screen the taskbar is on, **auto-hide *will* get 
 Moreover, the taskbar can occasionally get your face when you least expect it; applications that want your attention, for example, **will stop at nothing to keep that taskbar *open*.** It must know that you would rather stare at a flashing orange icon rather than continue your highly-focused work in Microsoft Word!
 
 ## Installation and Usage
-**Download the [latest release](https://github.com/CrypticButter/ButteryTaskbar/) of Buttery Taskbar.**
+**Download the [latest release](https://github.com/CrypticButter/ButteryTaskbar/releases) of Buttery Taskbar.**
 
 **Make sure to set your taskbar to auto-hide.** Although we won't be using the taskbar-appears-on-cursor-hover element of this feature, it is essential for a happy, positive experience. If you don't do this, you'll end up with a huge, unusable gap where the taskbar would be. Auto-hide makes this gap tiny.
 
@@ -47,6 +56,8 @@ Moreover, the taskbar can occasionally get your face when you least expect it; a
 ![Enable automatically hide the taskbar in desktop mode](https://i.imgur.com/MMVuYFjm.jpg)
 
 You will need to use the Windows key to view the taskbar.
+
+***[See the full installation, setup and usage guide!](https://github.com/CrypticButter/ButteryTaskbar/wiki/Installation,-Setup-and-Usage)***
 
 ## Tips for Making the Most of Your Buttery Taskbar
 You may be asking, 
@@ -57,9 +68,9 @@ If you're used to using the mouse a lot, it may take some time to get used to yo
 
 ### Leveraging Keyboard Shortcuts
 There are other ways to navigate the Windows desktop—without the need of the taskbar, of course. These include shortcuts such as:
-- Windows key + Tab *(Task View)*
-- (Ctrl +) Alt + Tab *(switch between windows)*
-- Alt + Escape (cycle through windows in the order in which they were last used)
+- `Windows key` + `Tab` *(Task View)*
+- (`Ctrl` +) `Alt` + `Tab` *(switch between windows)*
+- `Alt` + `Escape` (cycle through windows in the order in which they were last used)
 These shortcuts enhance productivity by themselves, even without a Buttery Taskbar!
 
 For more productive keyboard shortcuts, see this: ***[How to Navigate Windows 10: 123 Most Valuable Shortcuts](https://crypticbutter.com/navigate-windows-10-123-shortcuts/).***
@@ -80,3 +91,12 @@ If you want more details on how to make your taskbar better for convenience and 
 
 ## Compatibility
 The program has only been tested and known to work on Windows 10.
+
+## Known Issues and Other Notes
+- Yet to be tested in a multi-monitor configuration
+- No longer works once Windows Explorer has been restarted
+
+## Roadmap
+To get an idea of where I intend to take this program, [view the project board](https://github.com/CrypticButter/ButteryTaskbar/projects/1).
+
+**Note: development for the Buttery Taskbar is currently paused in favour of other projects and potential future software. Visit https://www.crypticbutter.com/ to see what I'm up to.**
