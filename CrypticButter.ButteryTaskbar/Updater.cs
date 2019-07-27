@@ -10,15 +10,6 @@ namespace CrypticButter.ButteryTaskbar
         {
             if (IsDeployed)
             {
-                if (!forceUpdate)
-                {
-                    bool updateNotDue = Properties.Settings.Default.LastCheckedForUpdate.AddHours(HoursBetweenUpdateCheck) > DateTime.Now;
-                    if (updateNotDue)
-                    {
-                        return;
-                    }
-                }
-
                 MainWindow.SetUpdatesMessage("Checking for updates...");
 
                 ApplicationDeployment.CurrentDeployment.CheckForUpdateCompleted += CheckForUpdateCompleted;
@@ -62,13 +53,13 @@ namespace CrypticButter.ButteryTaskbar
         {
             if (!e.Cancelled)
             {
-                if (e.Error != null)
+                if (e.Error == null)
                 {
-                    AppNotifyIcon.DisplayNotificationMessage($"We were unable to update to the latest version.\nError: {e.Error.Message}");
+                    App.Quit(shouldRestart: true);
                 }
                 else
                 {
-                    AppNotifyIcon.IsUpdateButtonVisible = true;
+                    AppNotifyIcon.DisplayNotificationMessage($"We were unable to update to the latest version.\nError: {e.Error.Message}");
                 }
             }
         }
