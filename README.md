@@ -59,6 +59,14 @@ You will need to use the Windows key to view the taskbar.
 
 ***[See the full installation, setup and usage guide!](https://github.com/CrypticButter/ButteryTaskbar/wiki/Installation,-Setup-and-Usage)***
 
+## Features
+- Tray icon to control the application
+- Automatic start on boot
+- Automatic updates
+- Ability to temporarily disable the application's functionality
+- Ability to disable always forcing the taskbar's hidden state when the Start Menu is closed (sometimes the taskbar will reappear by itself).
+- To complement your Buttery Taskbar, use Taskbar Hider by IT Samples to toggle the taskbar's visibility with a keyboard shortcut (try the Ctrl + Shift shortcuts if the Windows key shortcuts do nothing). In order for this to work, you will need to disable Keep taskbar hidden in Buttery Taskbar.
+
 ## Tips for Making the Most of Your Buttery Taskbar
 You may be asking, 
 *"But wait! Doesn't this application bring more inconvenience than it does good?"*
