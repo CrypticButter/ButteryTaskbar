@@ -58,5 +58,29 @@ namespace CrypticButter.ButteryTaskbar.Properties {
                 this["KeepTaskbarOpenIfCursorNear"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2018-09-01")]
+        public global::System.DateTime LastCheckedForUpdate {
+            get {
+                return ((global::System.DateTime)(this["LastCheckedForUpdate"]));
+            }
+            set {
+                this["LastCheckedForUpdate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsLeftHanded {
+            get {
+                return ((bool)(this["IsLeftHanded"]));
+            }
+            set {
+                this["IsLeftHanded"] = value;
+            }
+        }
     }
 }

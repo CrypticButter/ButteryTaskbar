@@ -11,5 +11,11 @@
     <Setting Name="KeepTaskbarOpenIfCursorNear" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="LastCheckedForUpdate" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">2018-09-01</Value>
+    </Setting>
+    <Setting Name="IsLeftHanded" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

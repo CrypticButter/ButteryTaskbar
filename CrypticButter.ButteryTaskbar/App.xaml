@@ -1,0 +1,11 @@
+﻿<Application x:Class="CrypticButter.ButteryTaskbar.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:CrypticButter.ButteryTaskbar"
+             StartupUri="MainWindow.xaml"
+             Startup="AppStartup"
+             Exit="Application_Exit">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
