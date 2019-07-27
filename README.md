@@ -92,11 +92,12 @@ If you want more details on how to make your taskbar better for convenience and 
 ## Compatibility
 The program has only been tested and known to work on Windows 10.
 
+Buttery Taskbar [supports multiple monitors](https://github.com/CrypticButter/ButteryTaskbar/wiki/Using-Multiple-Displays).
+
 ## Known Issues and Other Notes
-- Yet to be tested in a multi-monitor configuration
-- No longer works once Windows Explorer has been restarted
+- No longer works once Windows Explorer has been restarted. So, you must restart Buttery Taskbar it manually using the handy restart button in the context menu.
 
 ## Roadmap
-To get an idea of where I intend to take this program, [view the project board](https://github.com/CrypticButter/ButteryTaskbar/projects/1).
+To get an idea of where one could take this program, [view the project board](https://github.com/CrypticButter/ButteryTaskbar/projects/1).
 
-**Note: development for the Buttery Taskbar is currently paused in favour of other projects and potential future software. Visit https://www.crypticbutter.com/ to see what I'm up to.**
+Note: development for the Buttery Taskbar is currently paused (or at least very slow) in favour of other projects and potential future software. Visit https://www.crypticbutter.com/ to see what I'm up to.
