@@ -103,7 +103,6 @@ The program has only been tested and known to work on Windows 10.
 Buttery Taskbar [supports multiple monitors](https://github.com/CrypticButter/ButteryTaskbar/wiki/Using-Multiple-Displays).
 
 ## Known Issues and Other Notes
-- No longer works once Windows Explorer has been restarted. So, you must restart Buttery Taskbar it manually using the handy restart button in the context menu.
 - You may want to consider putting some of your notification tray icons in the overflow/hidden menu (including the Buttery Taskbar icon) for easier access to the context menus. Sometimes it can be a bit fiddly trying to access them from the taskbar directly when using Buttery Taskbar
 
 ## Roadmap
