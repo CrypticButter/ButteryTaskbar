@@ -18,6 +18,8 @@
         /// </summary>
         private const int UpdateTaskbarVisibilityInterval = 20;
 
+        private const int RefindTaskbarDelay = 300;
+
         private static bool disabled = false;
 
         /// <summary>
@@ -111,21 +113,26 @@
         private static void UpdateTaskbarVisibility() {
             updateVisibilityTimer.Stop();
 
-            bool isStartMenuVisible = StartMenu.GetCurrentVisibility();
-            bool startMenuVisibilityChanged = isStartMenuVisible != wasStartMenuVisibleBefore;
+            if (TaskbarManager.DoesTaskbarExist()) {
+                bool isStartMenuVisible = StartMenu.GetCurrentVisibility();
+                bool startMenuVisibilityChanged = isStartMenuVisible != wasStartMenuVisibleBefore;
 
-            bool shouldCorrectVisibility = ButteryTaskbar.Properties.Settings.Default.ForceTaskbarState;
-            bool wrongPrimaryTaskbarVisibility = TaskbarManager.AnyViolatingVisibilityOf(isStartMenuVisible) && shouldCorrectVisibility;
-            if (startMenuVisibilityChanged || wrongPrimaryTaskbarVisibility) {
-                TaskbarManager.SetAllVisibility(isStartMenuVisible);
-            }
-
-            if (startMenuVisibilityChanged) {
-                wasStartMenuVisibleBefore = isStartMenuVisible;
-
-                if (isStartMenuVisible) {
-                    TaskbarManager.SetFocusOnPrimary();
+                bool shouldCorrectVisibility = ButteryTaskbar.Properties.Settings.Default.ForceTaskbarState;
+                bool wrongPrimaryTaskbarVisibility = TaskbarManager.AnyViolatingVisibilityOf(isStartMenuVisible) && shouldCorrectVisibility;
+                if (startMenuVisibilityChanged || wrongPrimaryTaskbarVisibility) {
+                    TaskbarManager.SetAllVisibility(isStartMenuVisible);
                 }
+
+                if (startMenuVisibilityChanged) {
+                    wasStartMenuVisibleBefore = isStartMenuVisible;
+
+                    if (isStartMenuVisible) {
+                        TaskbarManager.SetFocusOnPrimary();
+                    }
+                }
+            } else {
+                Thread.Sleep(RefindTaskbarDelay);
+                TaskbarManager.TryFindingTaskbars();
             }
 
             updateVisibilityTimer.Start();

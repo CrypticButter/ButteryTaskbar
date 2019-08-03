@@ -6,12 +6,23 @@ using System.Threading.Tasks;
 
 namespace CrypticButter.ButteryTaskbar.Taskbar {
     internal static class TaskbarManager {
-        private static List<Taskbar> taskbars;
-        private static Taskbar primaryTaskbar = TaskbarFactory.GetPrimaryTaskbar();
+        private static List<Taskbar> taskbars = new List<Taskbar>();
+        private static Taskbar primaryTaskbar;
 
         static TaskbarManager() {
+            TryFindingTaskbars();
+        }
+
+        private static void InitialiseTaskbars() {
+            primaryTaskbar = TaskbarFactory.GetPrimaryTaskbar();
             taskbars = TaskbarFactory.GetAllSecondaryTaskbars();
             taskbars.Add(primaryTaskbar);
+        }
+
+        public static void TryFindingTaskbars() {
+            try {
+                InitialiseTaskbars();
+            } catch { }
         }
 
         public static void SetAllVisibility(bool shouldBeVisible) {
@@ -33,6 +44,11 @@ namespace CrypticButter.ButteryTaskbar.Taskbar {
 
         public static void SetFocusOnPrimary() {
             primaryTaskbar.SetFocus();
+        }
+
+        public static bool DoesTaskbarExist() {
+            bool exists = taskbars.Any() && !primaryTaskbar.HasInvalidHandle();
+            return exists;
         }
     }
 }
