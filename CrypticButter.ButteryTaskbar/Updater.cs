@@ -6,6 +6,9 @@ namespace CrypticButter.ButteryTaskbar
 {
     internal static class Updater
     {
+        public static event EventHandler<EventArgs> RestartRequested;
+        public static event EventHandler<EventArgs> CompletedWithoutUpdate;
+
         public static void Update(bool forceUpdate = false)
         {
             if (IsDeployed)
@@ -18,6 +21,7 @@ namespace CrypticButter.ButteryTaskbar
             else
             {
                 MainWindow.SetUpdatesMessage("Error: app not deployed.");
+                CompletedWithoutUpdate?.Invoke(new object(), new EventArgs());
             }
         }
 
@@ -35,11 +39,13 @@ namespace CrypticButter.ButteryTaskbar
                 else
                 {
                     MainWindow.SetUpdatesMessage($"Up to date as of {DateTime.Now.TimeOfDay.ToString()}.");
+                    CompletedWithoutUpdate?.Invoke(new object(), new EventArgs());
                 }
             }
             else
             {
                 MainWindow.SetUpdatesMessage("Oh no, something went very very wrong.");
+                CompletedWithoutUpdate?.Invoke(new object(), new EventArgs());
             }
         }
 
@@ -55,12 +61,15 @@ namespace CrypticButter.ButteryTaskbar
             {
                 if (e.Error == null)
                 {
-                    App.Quit(shouldRestart: true);
+                    RestartRequested?.Invoke(new object(), new EventArgs());
                 }
                 else
                 {
                     AppNotifyIcon.DisplayNotificationMessage($"We were unable to update to the latest version.\nError: {e.Error.Message}");
+                    CompletedWithoutUpdate.Invoke(new object(), new EventArgs());
                 }
+            } else {
+                CompletedWithoutUpdate?.Invoke(new object(), new EventArgs());
             }
         }
     }

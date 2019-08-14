@@ -142,7 +142,7 @@
 
             _disableAppMenuItem.Checked = isAppDisabled;
 
-            App.Disabled = isAppDisabled;
+            MainWindow.Disabled = isAppDisabled;
         }
 
         private static void AutoStartupMenuItem_Click(object sender, EventArgs args) {

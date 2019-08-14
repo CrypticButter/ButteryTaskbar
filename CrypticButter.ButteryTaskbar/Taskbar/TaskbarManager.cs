@@ -43,7 +43,7 @@ namespace CrypticButter.ButteryTaskbar.Taskbar {
         }
 
         public static void SetFocusOnPrimary() {
-            primaryTaskbar.SetFocus();
+            primaryTaskbar?.SetFocus();
         }
 
         public static bool DoesTaskbarExist() {

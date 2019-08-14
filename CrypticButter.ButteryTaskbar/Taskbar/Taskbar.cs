@@ -65,7 +65,7 @@
         }
 
         public bool HasInvalidHandle() {
-            return taskbarWindowHandle.GetClassName() != className;
+            return !(taskbarWindowHandle.IsValid && taskbarWindowHandle.GetClassName() == className);
         }
     }
 }
