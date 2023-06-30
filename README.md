@@ -1,5 +1,21 @@
+# The Old Buttery Taskbar (Version 1)
+
+***Notice: This version has been superseded by Buttery Taskbar 2:***
+
+https://github.com/LuisThiamNye/ButteryTaskbar2
+
+​
+
+​
+
+See below for the old version.
+
+---
+---
+
 # Buttery Taskbar: The Better Way to Hide Your Taskbar
-Save space on your screen by *permanently* hiding the taskbar when it's not needed. This is **a much-needed fix for Windows' default taskbar auto-hide.**
+
+Save space on your screen by *permanently* hiding the taskbar when it's not needed. This is a much-needed fix for Windows' default taskbar auto-hide.
 
 Essentially, we're combining the taskbar with the Start Menu.
 
